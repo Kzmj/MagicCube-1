@@ -18,14 +18,24 @@ class Surface {
 	// 面的边长
 	TOOL_CREATE_GET(GLfloat, lengthOfSide, LengthOfSide);
 
+	// 绑定的纹理
+	TOOL_CREATE_GET(GLuint, textureName, TextureName);
+
 private:
 
 	// 面的四个定点
 	Point* vertexes[VERTEX_COUNT];
 
+	// 纹理坐标
+	// 类里面竟然不能初始化成员数组！我艹他！
+	GLfloat textureCoord[VERTEX_COUNT][2];
+	//={ { 0.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f } };
+
 	GLfloat radianX;
 	GLfloat radianY;
 	GLfloat radianZ;
+
+	void initTextureCoord();
 
 protected:
 

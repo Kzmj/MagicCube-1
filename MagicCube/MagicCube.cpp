@@ -131,7 +131,6 @@ void MagicCube::rotateFront() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_FRONT[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_FRONT[i]]->rotateZ(-PI / 2, false);
-				cubes[SURFACE_FRONT[i]]->rotateCenterZ(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -153,7 +152,6 @@ void MagicCube::rotateFront() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_FRONT[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_FRONT[i]]->rotateZ(PI / 2, false);
-				cubes[SURFACE_FRONT[i]]->rotateCenterZ(PI / 2);
 			}
 
 			orientation = IDLE;
@@ -177,7 +175,6 @@ void MagicCube::rotateBack() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_BACK[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_BACK[i]]->rotateZ(-PI / 2, false);
-				cubes[SURFACE_BACK[i]]->rotateCenterZ(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -199,7 +196,6 @@ void MagicCube::rotateBack() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_BACK[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_BACK[i]]->rotateZ(PI / 2, false);
-				cubes[SURFACE_BACK[i]]->rotateCenterZ(PI / 2);
 			}
 
 			orientation = IDLE;
@@ -223,7 +219,6 @@ void MagicCube::rotateLeft() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_LEFT[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_LEFT[i]]->rotateX(-PI / 2, false);
-				cubes[SURFACE_LEFT[i]]->rotateCenterX(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -245,7 +240,6 @@ void MagicCube::rotateLeft() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_LEFT[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_LEFT[i]]->rotateX(PI / 2, false);
-				cubes[SURFACE_LEFT[i]]->rotateCenterX(PI / 2);
 			}
 
 			orientation = IDLE;
@@ -269,7 +263,6 @@ void MagicCube::rotateRight() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_RIGHT[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_RIGHT[i]]->rotateX(-PI / 2, false);
-				cubes[SURFACE_RIGHT[i]]->rotateCenterX(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -291,7 +284,6 @@ void MagicCube::rotateRight() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_RIGHT[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_RIGHT[i]]->rotateX(PI / 2, false);
-				cubes[SURFACE_RIGHT[i]]->rotateCenterX(PI / 2);
 			}
 
 			orientation = IDLE;
@@ -315,7 +307,6 @@ void MagicCube::rotateTop() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_TOP[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_TOP[i]]->rotateY(-PI / 2, false);
-				cubes[SURFACE_TOP[i]]->rotateCenterY(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -337,7 +328,6 @@ void MagicCube::rotateTop() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_TOP[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_TOP[i]]->rotateY(PI / 2, false);
-				cubes[SURFACE_TOP[i]]->rotateCenterY(PI / 2);
 			}
 
 			orientation = IDLE;
@@ -361,7 +351,6 @@ void MagicCube::rotateBottom() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_BOTTOM[i]] = temporary[SWAP_CLOCKWISE[i]];
 				cubes[SURFACE_BOTTOM[i]]->rotateY(-PI / 2, false);
-				cubes[SURFACE_BOTTOM[i]]->rotateCenterY(-PI / 2);
 			}
 
 			orientation = IDLE;
@@ -383,7 +372,6 @@ void MagicCube::rotateBottom() {
 			for (int i = 0; i < CUBE_DIMENSION*CUBE_DIMENSION; ++i) {
 				cubes[SURFACE_BOTTOM[i]] = temporary[SWAP_ANTI_CLOCKWISE[i]];
 				cubes[SURFACE_BOTTOM[i]]->rotateY(PI / 2, false);
-				cubes[SURFACE_BOTTOM[i]]->rotateCenterY(PI / 2);
 			}
 
 			orientation = IDLE;

@@ -5,6 +5,7 @@
 #include <time.h>
 #include <gl/freeglut.h>
 #include "MagicCube.h"
+#include "TextureSet.h"
 
 #define EACH_SIDE 512              // 一个小正方体的边长
 #define BETWEEN_GAP 64             // 小方块之间的间隔
@@ -42,7 +43,6 @@ void init() {
 	magicCube = new MagicCube(EACH_SIDE, BETWEEN_GAP);
 	eye = new Point(1500, 1500, 1500);
 	upOrder = new Point(-1, 1, -1);
-
 	srand((unsigned)time(0));
 }
 
@@ -56,12 +56,14 @@ void reshape(int width, int height) {
 	glFrustum(-500, 500, -500, 500, 400, 10000);
 
 	glMatrixMode(GL_MODELVIEW);
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 }
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
 
 	glColor3f(1.0, 1.0, 1.0);
 	glLoadIdentity();
@@ -75,10 +77,13 @@ void display() {
 
 void idle() {
 	if (!magicCube->isNeedRefresh()) {
-		GLint orientaion = 1 + rand() % 2;
+		GLint orientation = 1 + rand() % 2;
 		GLint ratateSurface = rand() % 6;
 
-		magicCube->startRotate(orientaion, ratateSurface);
+		/*GLint orientation = MagicCube::CLOCKWISE;
+		GLint ratateSurface = MagicCube::ROTATE_RIGHT;*/
+
+		magicCube->startRotate(orientation, ratateSurface);
 	}
 
 	magicCube->calulateRotate();

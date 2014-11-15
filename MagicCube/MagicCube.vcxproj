@@ -83,6 +83,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="TextureSet.cpp" />
     <ClCompile Include="tool.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +91,18 @@
     <ClInclude Include="MagicCube.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="TextureSet.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="tool_1.h" />
     <ClInclude Include="tool_2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resourse\back.bmp" />
+    <Image Include="resourse\bottom.bmp" />
+    <Image Include="resourse\front.bmp" />
+    <Image Include="resourse\left.bmp" />
+    <Image Include="resourse\right.bmp" />
+    <Image Include="resourse\top.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

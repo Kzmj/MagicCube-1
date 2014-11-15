@@ -41,3 +41,4 @@ GLfloat vectorDotProduct(Point vertex1, Point vertex2) {
 
 	return result;
 }
+

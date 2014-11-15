@@ -3,8 +3,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include "Surface.h"
+#include "TextureSet.h"
 
 Surface::Surface() {
+	initTextureCoord();
+
 	center = new Point();
 	lengthOfSide = 0;
 	radianX = 0;
@@ -17,6 +20,8 @@ Surface::Surface() {
 }
 
 Surface::Surface(Point normal, Point center, GLfloat lengthOfSide) {
+	initTextureCoord();
+
 	this->center = new Point(center);
 	this->lengthOfSide = lengthOfSide;
 	radianX = 0;
@@ -36,36 +41,48 @@ Surface::Surface(Point normal, Point center, GLfloat lengthOfSide) {
 		vertexes[1] = new Point(center.getX(), center.getY() - halfLength, center.getZ() - halfLength);
 		vertexes[2] = new Point(center.getX(), center.getY() + halfLength, center.getZ() - halfLength);
 		vertexes[3] = new Point(center.getX(), center.getY() + halfLength, center.getZ() + halfLength);
+
+		textureName = TextureSet::GetInstance()->getTextureNameRight();
 	}
 	if (normal.getX() < 0) {  // x轴反向
 		vertexes[0] = new Point(center.getX(), center.getY() - halfLength, center.getZ() + halfLength);
 		vertexes[1] = new Point(center.getX(), center.getY() + halfLength, center.getZ() + halfLength);
 		vertexes[2] = new Point(center.getX(), center.getY() + halfLength, center.getZ() - halfLength);
 		vertexes[3] = new Point(center.getX(), center.getY() - halfLength, center.getZ() - halfLength);
+
+		textureName = TextureSet::GetInstance()->getTextureNameLeft();
 	}
 	if (normal.getY() > 0) {  // y轴正向
 		vertexes[0] = new Point(center.getX() + halfLength, center.getY(), center.getZ() - halfLength);
 		vertexes[1] = new Point(center.getX() - halfLength, center.getY(), center.getZ() - halfLength);
 		vertexes[2] = new Point(center.getX() - halfLength, center.getY(), center.getZ() + halfLength);
 		vertexes[3] = new Point(center.getX() + halfLength, center.getY(), center.getZ() + halfLength);
+
+		textureName = TextureSet::GetInstance()->getTextureNameTop();
 	}
 	if (normal.getY() < 0) {  // y轴反向
 		vertexes[0] = new Point(center.getX() + halfLength, center.getY(), center.getZ() - halfLength);
 		vertexes[1] = new Point(center.getX() + halfLength, center.getY(), center.getZ() + halfLength);
 		vertexes[2] = new Point(center.getX() - halfLength, center.getY(), center.getZ() + halfLength);
 		vertexes[3] = new Point(center.getX() - halfLength, center.getY(), center.getZ() - halfLength);
+
+		textureName = TextureSet::GetInstance()->getTextureNameBottom();
 	}
 	if (normal.getZ() > 0) {  // z轴正向
 		vertexes[0] = new Point(center.getX() - halfLength, center.getY() + halfLength, center.getZ());
 		vertexes[1] = new Point(center.getX() - halfLength, center.getY() - halfLength, center.getZ());
 		vertexes[2] = new Point(center.getX() + halfLength, center.getY() - halfLength, center.getZ());
 		vertexes[3] = new Point(center.getX() + halfLength, center.getY() + halfLength, center.getZ());
+
+		textureName = TextureSet::GetInstance()->getTextureNameFront();
 	}
 	if (normal.getZ() < 0) {  // z轴反向
 		vertexes[0] = new Point(center.getX() - halfLength, center.getY() + halfLength, center.getZ());
 		vertexes[1] = new Point(center.getX() + halfLength, center.getY() + halfLength, center.getZ());
 		vertexes[2] = new Point(center.getX() + halfLength, center.getY() - halfLength, center.getZ());
 		vertexes[3] = new Point(center.getX() - halfLength, center.getY() - halfLength, center.getZ());
+
+		textureName = TextureSet::GetInstance()->getTextureNameBack();
 	}
 }
 
@@ -75,6 +92,17 @@ Surface::~Surface() {
 	for (int i = 0; i < VERTEX_COUNT; ++i) {
 		TOOL_SAFE_DELETE(vertexes[i]);
 	}
+}
+
+void Surface::initTextureCoord() {
+	textureCoord[0][0] = 0;
+	textureCoord[0][1] = 0;
+	textureCoord[1][0] = 0;
+	textureCoord[1][1] = 1;
+	textureCoord[2][0] = 1;
+	textureCoord[2][1] = 1;
+	textureCoord[3][0] = 1;
+	textureCoord[3][1] = 0;
 }
 
 Point Surface::getNormal() {
@@ -89,24 +117,13 @@ void Surface::dispatchDraw() {
 }
 
 void Surface::onDraw() {
-	glColor3f(1.0, 1.0, 1.0);
+	glBindTexture(GL_TEXTURE_2D, textureName);
+
 	glBegin(GL_POLYGON);
 	{
 		for (int i = 0; i < VERTEX_COUNT; ++i) {
-			Point vertex(*vertexes[i]);
-			if (radianX != 0) vertex.rotateXRadian(radianX);
-			if (radianY != 0) vertex.rotateYRadian(radianY);
-			if (radianZ != 0) vertex.rotateZRadian(radianZ);
+			glTexCoord2fv(textureCoord[i]);
 
-			glVertex3fv(vertex.toVector3f());
-		}
-	}
-	glEnd();
-
-	glColor3f(1.0, 0.0, 0.0);
-	glBegin(GL_LINE_LOOP);
-	{
-		for (int i = 0; i < VERTEX_COUNT; ++i) {
 			Point vertex(*vertexes[i]);
 			if (radianX != 0) vertex.rotateXRadian(radianX);
 			if (radianY != 0) vertex.rotateYRadian(radianY);
@@ -157,17 +174,32 @@ void Surface::rotateZ(GLfloat radian, GLboolean isVirtual) {
 void Surface::rotateCenterX(Point cubeCenter, GLfloat radian) {
 	for (int i = 0; i < VERTEX_COUNT; ++i) {
 		vertexes[i]->rotateCenterX(cubeCenter, radian);
+
+		Point temporary(textureCoord[i][0], textureCoord[i][1], 0);
+		temporary.rotateZRadian(-radian);
+		textureCoord[i][0] = temporary.getX();
+		textureCoord[i][1] = temporary.getY();
 	}
 }
 
 void Surface::rotateCenterY(Point cubeCenter, GLfloat radian) {
 	for (int i = 0; i < VERTEX_COUNT; ++i) {
 		vertexes[i]->rotateCenterY(cubeCenter, radian);
+
+		Point temporary(textureCoord[i][0], textureCoord[i][1], 0);
+		temporary.rotateZRadian(-radian);
+		textureCoord[i][0] = temporary.getX();
+		textureCoord[i][1] = temporary.getY();
 	}
 }
 
 void Surface::rotateCenterZ(Point cuberCenter, GLfloat radian) {
 	for (int i = 0; i < VERTEX_COUNT; ++i) {
 		vertexes[i]->rotateCenterZ(cuberCenter, radian);
+
+		Point temporary(textureCoord[i][0], textureCoord[i][1], 0);
+		temporary.rotateZRadian(-radian);
+		textureCoord[i][0] = temporary.getX();
+		textureCoord[i][1] = temporary.getY();
 	}
 }

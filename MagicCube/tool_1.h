@@ -57,3 +57,4 @@ GLfloat angleToRadian(GLfloat angle);
 * @brief »¡¶È±ä½Ç¶È
 */
 GLfloat radianToAngle(GLfloat radian);
+
