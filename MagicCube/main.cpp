@@ -80,9 +80,6 @@ void idle() {
 		GLint orientation = 1 + rand() % 2;
 		GLint ratateSurface = rand() % 6;
 
-		/*GLint orientation = MagicCube::CLOCKWISE;
-		GLint ratateSurface = MagicCube::ROTATE_RIGHT;*/
-
 		magicCube->startRotate(orientation, ratateSurface);
 	}
 

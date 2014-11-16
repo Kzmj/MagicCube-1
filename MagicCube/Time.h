@@ -89,8 +89,7 @@ public:
 
 public:
 
-	static INT64 getSystemTime()
-	{
+	static INT64 getSystemTime() {
 		timeb t;
 		ftime(&t);
 		return 1000 * t.time + t.millitm;

@@ -26,7 +26,11 @@ class MagicCube {
 	*/
 	TOOL_CREATE_GET(GLint, orientation, Orientation);
 
-	// 旋转的面
+	/**
+	* @biref 旋转的面
+	* @enmu ROTATE_FRONT, ROTATE_LEFT, ROTATE_BOTTOM
+	*       ROTATE_RIGHT, ROTATE_TOP,  ROTATE_BACK
+	*/
 	TOOL_CREATE_GET(GLint, rotateSurface, RotateSurface);
 
 private:
@@ -103,7 +107,7 @@ public:
 	void calulateRotate();
 
 	/**
-	* @brief 是否需要重新绘制
+	* @brief 是否需要重新设定旋转
 	* @note main.cpp 中的idle()中调用
 	*/
 	GLboolean isNeedRefresh();
